@@ -1,27 +1,26 @@
 import React from 'react'
-import uuid from 'uuid/v1'
-import NewBookForm from './NewBookForm'
+// import uuid from 'uuid/v1'
+// import NewBookForm from './NewBookForm'
+import { BookContext } from '../contexts/BookContext'
+import BookDetails from './BookDetails'
 
 const BookList = () => {
 
-  const [books, setBooks] = React.useState([
-    { title: 'sss', id: 1 },
-    { title: 'sss', id: 2 },
-  ]);
+  const { books } = React.useContext(BookContext) 
 
-  const addBook = title => {
-    setBooks([ ...books, { title, id: uuid() }]);
-  }
-
-  return(
+  return books.length ? (
     <div className='song-list'>
       {books.map(book => {
         return (
-          <li key={book.id}>{book.title}</li>
+          <BookDetails key={book.id} book={book} />
         )
       })}
-      <NewBookForm addBook={addBook} />
+      {/* <NewBookForm addBook={addBook} /> */}
     </div>
+  ) : (
+    <>
+      no books
+    </>
   )
 }
 
