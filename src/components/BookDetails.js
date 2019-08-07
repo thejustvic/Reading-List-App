@@ -5,7 +5,7 @@ import './BookDetails.css'
 const BookDetails = ({ book }) => {
   const { dispatch } = React.useContext(BookContext)
   return(
-    <li 
+    <div 
       className='book-details'
       onClick={() => dispatch({
         type: 'REMOVE_BOOK', 
@@ -16,18 +16,13 @@ const BookDetails = ({ book }) => {
       onDragStart={event => {
         event.dataTransfer.setData('drag-item', JSON.stringify(book));
       }}
-      onDragEnd={()=>
-        dispatch({
-          type: 'REMOVE_BOOK', 
-          payload: book.id
-        })
-      }
     >
       <div className='book-title'> title: {book.title}</div>
       <div className='book-author'>author: {book.author}</div>
-      <div className='book-type'>type: {book.type}</div>
-      <div className='book-id'>id: {book.id}</div>
-    </li>
+      {/* <div className='book-type'>type: {book.type}</div> */}
+      {/* <div className='book-id'>id: {book.id}</div> */}
+      <div className='book-id'>date: {book.date.toLocaleString("ru")}</div>
+    </div>
   )
 }
 

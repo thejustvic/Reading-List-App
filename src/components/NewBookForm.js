@@ -46,7 +46,7 @@ const NewBookForm = () => {
   
   return(
     <form onSubmit={handleSubmit}>
-      <label>Book Name:</label>
+      {/* <label>Book Name:</label> */}
       <input 
         type='text' 
         required 
