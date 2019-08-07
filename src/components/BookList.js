@@ -7,7 +7,7 @@ const BookList = () => {
   const { books } = React.useContext(BookContext) 
 
   return books.length ? (
-    <div className='song-list'>
+    <div className='book-list'>
       {books.map(book => {
         return (
           <BookDetails key={book.id} book={book} />

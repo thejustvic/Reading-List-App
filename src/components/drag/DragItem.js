@@ -2,7 +2,7 @@ import React from 'react'
 import { BookContext } from '../../contexts/BookContext'
 import './DragItem.css'
 
-const DragItem = ({ title, id }) => {
+const DragItem = ({ book }) => {
 
   const { dispatch } = React.useContext(BookContext)
 
@@ -12,17 +12,17 @@ const DragItem = ({ title, id }) => {
         className='drag-item'
         draggable={true}
         onDragStart={event => {
-          event.dataTransfer.setData('drag-item', JSON.stringify(title));
+          event.dataTransfer.setData('drag-item', JSON.stringify(book));
         }}
 
-        onDragEndCapture={()=>
+        onDragEnd={()=>
           dispatch({
             type: 'REMOVE_BOOK', 
-            payload: id
+            payload: book.id
           })
         }
       >
-        {title}
+        {book.title}
       </div>
     </div>
   )

@@ -10,11 +10,10 @@ const DragContainer = ({ containerType }) => {
   const createDragItems = () => {
     let items = [];
     
-    books.filter(item => item.type === containerType).forEach((item,key) => items.push(
+    books.filter(item => item.type === containerType).forEach(item => items.push(
       <DragItem
-        key={key}
-        title={item.title}
-        id={item.id}
+        key={item.id}
+        book={item}
       />
     ))
 
@@ -24,25 +23,31 @@ const DragContainer = ({ containerType }) => {
   }
 
   return(
-    <div 
-      className='drag-container'
-      onDrop={event => {
-        let data = JSON.parse(
-          event.dataTransfer.getData('drag-item')
-        );
-        dispatch({
-          type: 'ADD_BOOK',
-          payload:{
-            title: data,
-            type: containerType,
-          }
-        })
-      }}
-      onDragOver={event => {
-        event.preventDefault();
-      }}
-    >
-      {createDragItems()}
+    <div>
+      <p className='container-name'>{containerType}</p>
+      <div 
+        className='drag-container'
+        onDrop={event => {
+          let data = JSON.parse(
+            event.dataTransfer.getData('drag-item')
+          );
+          dispatch({
+            type: 'ADD_BOOK',
+            payload:{
+              title: data.title,
+              author: data.author,
+              type: containerType,
+              id: data.id
+            }
+          })
+        }}
+        onDragOver={event => {
+          event.preventDefault();
+        }}
+      >
+        {createDragItems()}
+      </div>
+      <button className='container-button' onClick={()=>console.log(containerType)}>delete</button>
     </div>
   )
 }
