@@ -15,12 +15,16 @@ const DragItem = ({ book }) => {
           event.dataTransfer.setData('drag-item', JSON.stringify(book));
         }}
 
-        onDragEnd={()=>
+        onDragEnd={() => 
           dispatch({
             type: 'REMOVE_BOOK', 
             payload: book.id
           })
         }
+        onClick={() => {
+          console.log('log')
+        }}
+        title='push'
       >
         {book.title}
       </div>
