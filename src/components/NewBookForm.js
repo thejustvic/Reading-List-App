@@ -1,17 +1,30 @@
 import React from 'react'
 import { BookContext } from '../contexts/BookContext'
+import { ContainerContext } from '../contexts/ContainerContext';
 
 const NewBookForm = () => {
 
   const { dispatch } = React.useContext(BookContext)
 
+  const useContainerContext = React.useContext(ContainerContext)
+
   const [title, setTitle] = React.useState('')
   const [author, setAuthor] = React.useState('')
-  const [type, setType] = React.useState('todo')
+  const [type, setType] = React.useState(
+    useContainerContext &&
+    useContainerContext.containers &&
+    useContainerContext.containers[0] &&
+    useContainerContext.containers[0].id
+  )
 
   React.useEffect(()=>{
-    console.log(type)
-  },[type])
+    setType(
+      useContainerContext &&
+      useContainerContext.containers &&
+      useContainerContext.containers[0] &&
+      useContainerContext.containers[0].id
+    )
+  },[useContainerContext])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -49,11 +62,15 @@ const NewBookForm = () => {
         placeholder='title'
       />
       <select value={type} onChange={e => handleChangeType(e)}>
-        <option value="todo">todo</option>
-        <option value="done">done</option>
-        <option value="work">work</option>
+        {
+          useContainerContext.containers.map(item => {
+            return (
+              <option key={item.id} value={item.id}>{item.name}</option>
+            )
+          })
+        }
       </select>
-      <input type='submit' value='add book' />
+      <input type='submit' value='add book' disabled={!useContainerContext.containers.length > 0} />
     </form>
   )
 } 

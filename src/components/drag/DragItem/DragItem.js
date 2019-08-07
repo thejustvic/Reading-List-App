@@ -1,5 +1,5 @@
 import React from 'react'
-import { BookContext } from '../../contexts/BookContext'
+import { BookContext } from '../../../contexts/BookContext'
 import './DragItem.css'
 
 const DragItem = ({ book }) => {

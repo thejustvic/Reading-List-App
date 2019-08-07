@@ -1,6 +1,7 @@
 import React from 'react'
 import { BookContext } from '../contexts/BookContext'
 import BookDetails from './BookDetails'
+import './BookList.css'
 
 const BookList = () => {
 

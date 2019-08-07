@@ -13,7 +13,7 @@ const BookDetails = ({ book }) => {
     >
       <div className='book-title'>{book.title}</div>
       <div className='book-author'>{book.author}</div>
-      <div className='book-type'>{book.type}</div>
+      {/* <div className='book-type'>{book.type}</div> */}
     </li>
   )
 }
