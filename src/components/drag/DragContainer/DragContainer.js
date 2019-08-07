@@ -5,16 +5,17 @@ import './DragContainer.css'
 import { ContainerContext } from '../../../contexts/ContainerContext';
 
 const DragContainer = props => {
-
   const useBookContext = React.useContext(BookContext)
   const useContainerContext = React.useContext(ContainerContext)
 
   const createDragItems = () => {
     let items = [];
     
-    useBookContext.books.filter(item => item.type === props.container.id).forEach(item => items.push(
+    useBookContext.books
+    .filter(item => item.type === props.container.id)
+    .forEach((item, key) => items.push(
       <DragItem
-        key={item.id}
+        key={key}
         book={item}
       />
     ))
@@ -39,8 +40,11 @@ const DragContainer = props => {
               title: data.title,
               author: data.author,
               type: props.container.id,
-              id: data.id
             }
+          })
+          useBookContext.dispatch({
+            type: 'REMOVE_BOOK', 
+            payload: data.id
           })
         }}
         onDragOver={event => {

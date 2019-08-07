@@ -9,9 +9,9 @@ const BookList = () => {
 
   return books.length ? (
     <div className='book-list'>
-      {books.map(book => {
+      {books.map((book, key) => {
         return (
-          <BookDetails key={book.id} book={book} />
+          <BookDetails key={key} book={book} />
         )
       })}
     </div>
