@@ -1,0 +1,13 @@
+.drag-item-wrapper{
+  display: flex;
+  justify-content: center;
+  padding: 2px;
+}
+
+.drag-item{
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  background: #fff;
+  height: 30px;
+}

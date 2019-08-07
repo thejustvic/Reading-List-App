@@ -1,6 +1,4 @@
 import React from 'react'
-// import uuid from 'uuid/v1'
-// import NewBookForm from './NewBookForm'
 import { BookContext } from '../contexts/BookContext'
 import BookDetails from './BookDetails'
 
@@ -15,7 +13,6 @@ const BookList = () => {
           <BookDetails key={book.id} book={book} />
         )
       })}
-      {/* <NewBookForm addBook={addBook} /> */}
     </div>
   ) : (
     <>
