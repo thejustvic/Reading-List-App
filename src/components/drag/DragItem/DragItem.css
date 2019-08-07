@@ -12,3 +12,15 @@
   height: 30px;
   cursor: pointer;
 }
+
+.item-change{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  border: 1px solid;
+  padding: 20px;
+}

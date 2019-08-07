@@ -9,6 +9,16 @@ export const containerReducer = (state, action) => {
       }]
     case 'REMOVE_CONTAINER':
       return state.filter(container => container.id !== action.payload)
+    case 'CHANGE_CONTAINER_NAME':
+      return state.map(item => {
+        if (item.id !== action.payload.id) {
+          return item
+        }
+        return {
+          ...item,
+          ...action.payload.item
+        }
+    })
     default: 
       return state
   }

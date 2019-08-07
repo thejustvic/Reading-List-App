@@ -8,10 +8,22 @@ export const bookReducer = (state, action) => {
         author: action.payload.author,
         type: action.payload.type,
         id: uuid(),
-        date: new Date()
+        lastUpdateDate: new Date(),
+        createDate: action.payload.createDate ? 
+          action.payload.createDate : new Date(),
       }]
     case 'REMOVE_BOOK':
       return state.filter(book => book.id !== action.payload)
+    case 'CHANGE_BOOK':
+      return state.map(item => {
+        if (item.id !== action.payload.id) {
+          return item
+        }
+        return {
+          ...item,
+          ...action.payload.item
+        }
+    })
     default: 
       return state
   }

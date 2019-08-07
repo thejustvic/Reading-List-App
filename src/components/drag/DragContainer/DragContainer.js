@@ -5,12 +5,14 @@ import './DragContainer.css'
 import { ContainerContext } from '../../../contexts/ContainerContext';
 
 const DragContainer = props => {
+  const [state, setState] = React.useState(false)
+  const [containerName, setContainerName] = React.useState(props.container.name)
   const useBookContext = React.useContext(BookContext)
   const useContainerContext = React.useContext(ContainerContext)
 
   const createDragItems = () => {
     let items = [];
-    
+
     useBookContext.books
     .filter(item => item.type === props.container.id)
     .forEach((item, key) => items.push(
@@ -25,9 +27,29 @@ const DragContainer = props => {
     )
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    useContainerContext.dispatch({
+      type: 'CHANGE_CONTAINER_NAME',
+      payload:{
+        id: props.container.id,
+        item: {
+          name: containerName
+        }
+      }
+    })
+    setState(false)
+  }
+
   return(
     <div>
-      <p className='container-name'>{props.container.name}</p>
+      <p 
+        className='container-name'
+        title='push'
+        onClick={() => {
+          setState(true)
+        }}
+      >{props.container.name}</p>
       <div 
         className='drag-container'
         onDrop={event => {
@@ -40,6 +62,7 @@ const DragContainer = props => {
               title: data.title,
               author: data.author,
               type: props.container.id,
+              createDate: data.createDate,
             }
           })
           useBookContext.dispatch({
@@ -60,6 +83,30 @@ const DragContainer = props => {
           payload: props.container.id
         })}
       >delete</button>
+      <div>
+        {
+          state &&
+            <div className='item-change'>
+              <form onSubmit={handleSubmit}>
+                <input 
+                  type='text' 
+                  // required 
+                  onChange={e => setContainerName(e.target.value)} 
+                  value={containerName}
+                  placeholder='name'
+                />
+              
+                <input type='submit' value='change name' />
+              </form>
+              <button 
+                onClick={()=> {
+                  setState(false)
+                  setContainerName(props.container.name)
+                }}
+              >close</button>
+            </div>
+        }
+      </div>
     </div>
   )
 }
