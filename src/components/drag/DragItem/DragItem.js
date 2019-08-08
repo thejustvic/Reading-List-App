@@ -8,6 +8,7 @@ const DragItem = ({ book }) => {
   const useBookContext = React.useContext(BookContext)
   const [title, setTitle] = React.useState(book.title)
   const [author, setAuthor] = React.useState(book.author)
+  const [description, setDescription] = React.useState(book.description)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -18,6 +19,7 @@ const DragItem = ({ book }) => {
         item: {
           title,
           author,
+          description,
           lastUpdateDate: new Date()
         }
       }
@@ -53,6 +55,7 @@ const DragItem = ({ book }) => {
                     setState(false)
                     setTitle(book.title)
                     setAuthor(book.author)
+                    setDescription(book.description)
                   }}
                 >close</button>
                 <div className='item-fields'>
@@ -72,6 +75,14 @@ const DragItem = ({ book }) => {
                     onChange={e => setTitle(e.target.value)} 
                     value={title}
                     placeholder='title'
+                  />
+                  <br />
+                  <textarea 
+                    rows="4" 
+                    cols="50"
+                    onChange={e => setDescription(e.target.value)} 
+                    value={description}
+                    placeholder='description'
                   />
                   <br />
                   <label>create date:</label>

@@ -7,6 +7,7 @@ export const bookReducer = (state, action) => {
         title: action.payload.title,
         author: action.payload.author,
         type: action.payload.type,
+        description: action.payload.description,
         id: uuid(),
         lastUpdateDate: new Date(),
         createDate: action.payload.createDate ? 

@@ -54,13 +54,14 @@ const DragContainer = props => {
         onDrop={event => {
           let data = JSON.parse(
             event.dataTransfer.getData('drag-item')
-          );
+          );     
           useBookContext.dispatch({
             type: 'ADD_BOOK',
             payload:{
               title: data.title,
               author: data.author,
               type: props.container.id,
+              description: props.description,
               createDate: data.createDate,
             }
           })
