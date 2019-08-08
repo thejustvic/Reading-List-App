@@ -1,4 +1,9 @@
 .container-wrapper{
   display: flex;
   margin: 10px;
+  color: #555;
+}
+
+.drag-body{
+  margin: auto
 }

@@ -1,16 +1,17 @@
-.drag-item-wrapper{
-  display: flex;
-  justify-content: center;
-  padding: 2px;
-}
-
 .drag-item{
   display: flex;
   justify-content: center;
-  width: 40px;
-  background: #fff;
-  height: 30px;
+  padding: 2px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.15);
+  border: 1px solid #fff;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   cursor: pointer;
+  min-height: 50px;
 }
 
 .item-change{
@@ -23,4 +24,17 @@
   text-align: center;
   border: 1px solid;
   padding: 20px;
+  background: wheat;
+}
+
+.item-fields{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.close-button{
+  position: absolute;
+  right: 0;
+  top: 0;
 }

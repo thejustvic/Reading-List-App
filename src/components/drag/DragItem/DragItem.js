@@ -27,20 +27,18 @@ const DragItem = ({ book }) => {
 
   return(
     <>
-      <div className='drag-item-wrapper'>
-        <div
-          className='drag-item'
-          draggable={true}
-          onDragStart={event => {
-            event.dataTransfer.setData('drag-item', JSON.stringify(book));
-          }}
-          onClick={() => {
-            setState(true)
-          }}
-          title='push'
-        >
-          {book.title}
-        </div>
+      <div
+        className='drag-item'
+        draggable={true}
+        onDragStart={event => {
+          event.dataTransfer.setData('drag-item', JSON.stringify(book));
+        }}
+        onClick={() => {
+          setState(true)
+        }}
+        title='push'
+      >
+        {book.title}
       </div>
 
       <div>
@@ -48,30 +46,43 @@ const DragItem = ({ book }) => {
           state &&
             <div className='item-change'>
               <form onSubmit={handleSubmit}>
-                <input 
-                  type='text' 
-                  // required 
-                  onChange={e => setAuthor(e.target.value)} 
-                  value={author}
-                  placeholder='author'
-                />
-                <input 
-                  type='text' 
-                  // required 
-                  onChange={e => setTitle(e.target.value)} 
-                  value={title}
-                  placeholder='title'
-                />
-              
+                <button 
+                  type='button'
+                  className='close-button'
+                  onClick={()=> {
+                    setState(false)
+                    setTitle(book.title)
+                    setAuthor(book.author)
+                  }}
+                >close</button>
+                <div className='item-fields'>
+                  <label>author:</label>
+                  <input 
+                    type='text' 
+                    // required 
+                    onChange={e => setAuthor(e.target.value)} 
+                    value={author}
+                    placeholder='author'
+                  />
+                  <br />
+                  <label>title:</label>
+                  <input 
+                    type='text' 
+                    // required 
+                    onChange={e => setTitle(e.target.value)} 
+                    value={title}
+                    placeholder='title'
+                  />
+                  <br />
+                  <label>create date:</label>
+                  {book.createDate.toLocaleString("ru")}
+                  <br />
+                  <br />
+                  <label>update date:</label>
+                  {book.lastUpdateDate.toLocaleString("ru")}
+                </div>
                 <input type='submit' value='change book' />
-              </form>
-              <button 
-                onClick={()=> {
-                  setState(false)
-                  setTitle(book.title)
-                  setAuthor(book.author)
-                }}
-              >close</button>
+              </form> 
             </div>
         }
       </div>

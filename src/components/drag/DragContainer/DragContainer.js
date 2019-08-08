@@ -10,23 +10,6 @@ const DragContainer = props => {
   const useBookContext = React.useContext(BookContext)
   const useContainerContext = React.useContext(ContainerContext)
 
-  const createDragItems = () => {
-    let items = [];
-
-    useBookContext.books
-    .filter(item => item.type === props.container.id)
-    .forEach((item, key) => items.push(
-      <DragItem
-        key={key}
-        book={item}
-      />
-    ))
-
-    return(
-      items
-    )
-  }
-
   const handleSubmit = e => {
     e.preventDefault()
     useContainerContext.dispatch({
@@ -39,6 +22,22 @@ const DragContainer = props => {
       }
     })
     setState(false)
+  }
+
+  const renderDragItems = () => {
+    let items = [];
+    useBookContext.books
+    .filter(item => item.type === props.container.id)
+    .forEach((item, key) => items.push(
+      <DragItem
+        key={key}
+        book={item}
+      />
+    ))
+
+    return(
+      items
+    )
   }
 
   return(
@@ -74,7 +73,7 @@ const DragContainer = props => {
           event.preventDefault();
         }}
       >
-        {createDragItems()}
+        {renderDragItems()}
       </div>
       <button 
         className='container-button'
@@ -88,22 +87,26 @@ const DragContainer = props => {
           state &&
             <div className='item-change'>
               <form onSubmit={handleSubmit}>
-                <input 
-                  type='text' 
-                  // required 
-                  onChange={e => setContainerName(e.target.value)} 
-                  value={containerName}
-                  placeholder='name'
-                />
-              
+                <button 
+                  type='button'
+                  className='close-button'
+                  onClick={()=> {
+                    setState(false)
+                    setContainerName(props.container.name)
+                  }}
+                >close</button>
+                 <div className='item-fields'>
+                  <label>container name:</label>
+                  <input 
+                    type='text' 
+                    // required 
+                    onChange={e => setContainerName(e.target.value)} 
+                    value={containerName}
+                    placeholder='name'
+                  />
+                </div>
                 <input type='submit' value='change name' />
               </form>
-              <button 
-                onClick={()=> {
-                  setState(false)
-                  setContainerName(props.container.name)
-                }}
-              >close</button>
             </div>
         }
       </div>

@@ -4,23 +4,20 @@ import './DragBody.css'
 import { ContainerContext } from '../../../contexts/ContainerContext';
 
 const DragBody = () => {
-  const [containerTypeName, setContainerTypeName] = React.useState('')
+  const [containerName, setContainerName] = React.useState('')
   const useContainerContext = React.useContext(ContainerContext)
 
   const handleSubmit = e => {
     e.preventDefault()
-
     useContainerContext.dispatch({
       type: 'ADD_CONTAINER',
-      payload: containerTypeName,
+      payload: containerName,
     })
-
-    setContainerTypeName('')
+    setContainerName('')
   }
 
-  const createDragContainers = () => {
+  const renderDragContainers = () => {
     let items = [];
-    
     useContainerContext.containers.forEach(item => items.push(
       <DragContainer
         key={item.id}
@@ -34,22 +31,22 @@ const DragBody = () => {
   }
 
   return(
-    <>
+    <div className='drag-body'>
       <form onSubmit={handleSubmit}>  
         <input 
           type='text' 
           required 
-          onChange={e => setContainerTypeName(e.target.value)} 
-          value={containerTypeName}
+          onChange={e => setContainerName(e.target.value)} 
+          value={containerName}
           placeholder='container name'
         />
         <input type='submit' value='add container' />
       </form>
       
       <div className='container-wrapper'>
-        {createDragContainers()}
+        {renderDragContainers()}
       </div>
-    </>
+    </div>
   )
 }
 

@@ -21,8 +21,8 @@ const BookDetails = ({ book }) => {
       <div className='book-author'>author: {book.author}</div>
       {/* <div className='book-type'>type: {book.type}</div> */}
       {/* <div className='book-id'>id: {book.id}</div> */}
-      <div className='book-id'>createDate: {book.createDate.toLocaleString("ru")}</div>
-      <div className='book-id'>last update date: {book.lastUpdateDate.toLocaleString("ru")}</div>
+      {/* <div className='book-id'>createDate: {book.createDate.toLocaleString("ru")}</div> */}
+      {/* <div className='book-id'>last update date: {book.lastUpdateDate.toLocaleString("ru")}</div> */}
     </div>
   )
 }
