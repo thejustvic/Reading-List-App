@@ -32,6 +32,7 @@ const DragContainer = props => {
       <DragItem
         key={key}
         book={item}
+        order={key}
       />
     ))
 
@@ -52,25 +53,45 @@ const DragContainer = props => {
       <div 
         className='drag-container'
         onDrop={event => {
-          let data = JSON.parse(
+          let dataOrder = JSON.parse(
             event.dataTransfer.getData('drag-item')
-          );     
-          useBookContext.dispatch({
-            type: 'ADD_BOOK',
-            payload:{
-              title: data.title,
-              author: data.author,
-              type: props.container.id,
-              description: props.description,
-              createDate: data.createDate,
-            }
-          })
-          useBookContext.dispatch({
-            type: 'REMOVE_BOOK', 
-            payload: data.id
-          })
+          ); 
+          let sourceOrder = JSON.parse(
+            event.dataTransfer.getData('drag-item-source')
+          ); 
+          if(event.target.className === 'drag-container'){
+            useBookContext.dispatch({
+              type: 'ADD_BOOK',
+              payload:{
+                  title: dataOrder.title,
+                  author: dataOrder.author,
+                  type: props.container.id,
+                  createDate: dataOrder.createDate,
+                }
+              })
+              useBookContext.dispatch({
+                type: 'REMOVE_BOOK', 
+                payload: dataOrder.id
+              })
+          } else {
+            useBookContext.dispatch({
+              type: 'SWAP_BOOK',
+              payload:{
+                sourceOrder: sourceOrder,
+                targetOrder: event.target.getAttribute('data-id'),
+
+                sourceType: dataOrder.type,
+                targetType: event.target.getAttribute('data-type'),
+              }
+            })
+          }
         }}
         onDragOver={event => {
+
+          // console.log(event.screenX)
+          // console.log(event.screenY)
+          // console.log(event.target.id)
+
           event.preventDefault();
         }}
       >

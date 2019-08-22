@@ -2,7 +2,7 @@ import React from 'react'
 import './DragItem.css'
 import { BookContext } from '../../../contexts/BookContext';
 
-const DragItem = ({ book }) => {
+const DragItem = ({ book, order }) => {
 
   const [state, setState] = React.useState(false)
   const useBookContext = React.useContext(BookContext)
@@ -34,11 +34,14 @@ const DragItem = ({ book }) => {
         draggable={true}
         onDragStart={event => {
           event.dataTransfer.setData('drag-item', JSON.stringify(book));
+          event.dataTransfer.setData('drag-item-source', JSON.stringify(book.id));
         }}
         onClick={() => {
           setState(true)
         }}
         title='push'
+        data-id={book.id}
+        data-type={book.type}
       >
         {book.title}
       </div>
