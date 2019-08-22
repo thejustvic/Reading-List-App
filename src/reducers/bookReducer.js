@@ -1,5 +1,44 @@
 import uuid from 'uuid/v1'
 
+function swap(
+  arr, 
+  targetOrderKey, 
+  targetOrderType,
+  sourceOrderKey,
+  sourceOrderType,
+) {
+  let temp,temp1,temp2,temp3,temp4,temp5
+
+  if(sourceOrderType !== targetOrderType){
+        temp1 = arr[targetOrderKey].author;
+    arr[targetOrderKey].author = arr[sourceOrderKey].author;
+    arr[sourceOrderKey].author = temp1;
+
+        temp2 = arr[targetOrderKey].createDate;
+    arr[targetOrderKey].createDate = arr[sourceOrderKey].createDate;
+    arr[sourceOrderKey].createDate = temp2;
+
+        temp3 = arr[targetOrderKey].id;
+    arr[targetOrderKey].id = arr[sourceOrderKey].id;
+    arr[sourceOrderKey].id = temp3;
+
+        temp4 = arr[targetOrderKey].lastUpdateDate;
+    arr[targetOrderKey].lastUpdateDate = arr[sourceOrderKey].lastUpdateDate;
+    arr[sourceOrderKey].lastUpdateDate = temp4;
+
+        temp5 = arr[targetOrderKey].title;
+    arr[targetOrderKey].title = arr[sourceOrderKey].title;
+    arr[sourceOrderKey].title = temp5;
+  }
+  else {
+    temp = arr[targetOrderKey];
+    arr[targetOrderKey] = arr[sourceOrderKey];
+    arr[sourceOrderKey] = temp;
+  }
+
+  return arr;
+}
+
 const destructuringSwap = (
   list, 
   sourceOrder, 
@@ -7,37 +46,24 @@ const destructuringSwap = (
   sourceType,
   targetType,
 ) => {
-  console.log('------------------------')
-  console.log('sourceOrder', sourceOrder)
-  console.log('targetOrder', targetOrder)
-  console.log('sourceType', sourceType)
-  console.log('targetType', targetType)
-  console.log('------------------------')
+  let sourceOrderKey, targetOrderKey
 
-
-  // Object.values(list).map(elem => {
-    // let sou, tag
-    // if(sourceOrder === elem.id){
-    //   sou = elem.id
-    // }
-    // if(targetOrder === elem.id){
-    //   tag = elem.id
-    // }
-
-    // console.log(elem.id)
-
-
-
-    // console.log('sou', sou)
-    // console.log('tag', tag)
-
-    // var a = this.obj1;
-    // this.obj1 = this.obj2;
-    // this.obj2 = a;
-  // })
-
-  
-  return list;
+  Object.values(list).forEach((elem,key) => {
+    if(elem.id === sourceOrder){
+      sourceOrderKey = key
+    }
+    if(elem.id === targetOrder){
+      targetOrderKey = key
+    }
+  })
+ 
+  return swap(
+    list, 
+    targetOrderKey, 
+    targetType,
+    sourceOrderKey,
+    sourceType,
+  );
 }
 
 export const bookReducer = (state, action) => {
@@ -67,18 +93,7 @@ export const bookReducer = (state, action) => {
     })
 
     case 'SWAP_BOOK': 
-      // return [...state, {
-        // title: action.payload.title,
-        // author: action.payload.author,
-        // type: action.payload.type,
-        // description: action.payload.description,
-        // id: uuid(),
-        // lastUpdateDate: new Date(),
-        // createDate: action.payload.createDate ? 
-        //   action.payload.createDate : new Date(),
-      // }]
-
-      return destructuringSwap(
+      const rr = destructuringSwap(
         state, 
         action.payload.sourceOrder, 
         action.payload.targetOrder,
@@ -86,6 +101,7 @@ export const bookReducer = (state, action) => {
         action.payload.targetType,
       )
 
+      return [...rr]
     default: 
       return state
   }
